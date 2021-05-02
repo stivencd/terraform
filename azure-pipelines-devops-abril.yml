@@ -12,4 +12,21 @@ pool:
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
-
+- task: DownloadSecureFile@1
+  name: publickey
+  inputs:
+    secureFile: 'azure_rsa.pub'
+    retryCount: '5'
+- task: TerraformCLI@0
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/azure-terraform/kubernetes'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
+    backendType: 'azurerm'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'terraform-backend-scd'
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    backendAzureRmStorageAccountName: 'storageacctafor255scd'
+    backendAzureRmContainerName: 'storageacctafor255scdcontainer'
+    backendAzureRmKey: 'kubernetes-dev-tfstate'
+    allowTelemetryCollection: true
