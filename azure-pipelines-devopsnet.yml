@@ -14,6 +14,7 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 - task: DownloadSecureFile@1
+  name: publickey
   inputs:
     secureFile: 'azure-rsa.pub'
     retryCount: '5'
