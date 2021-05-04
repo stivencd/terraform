@@ -13,6 +13,10 @@ pool:
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'azure-rsa.pub'
+    retryCount: '5'
 - task: TerraformCLI@0
   inputs:
     command: 'init'
