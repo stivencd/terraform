@@ -7,8 +7,9 @@ trigger:
 - master
 
 pool:
-  vmImage: ubuntu-latest
-
+  name: Default
+  demands:
+   - agent.name -equals StivenPCAgent
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
