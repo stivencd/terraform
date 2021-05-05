@@ -33,6 +33,8 @@ steps:
     backendAzureRmKey: 'kubernetes-dev.tfstate'
     allowTelemetryCollection: true
 - task: TerraformCLI@0
+  name: terraformApply
+  displayName: 'Terraform : validate and apply'
   inputs:
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/azure-terraform/kubernetes'
